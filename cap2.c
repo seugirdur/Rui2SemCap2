@@ -1,4 +1,4 @@
-#define aula2ex1
+#define aula2ex5
 
 #ifdef aula2ex1
 #include <stdio.h>
@@ -44,41 +44,45 @@ void main() {
 #ifdef aula2ex2
 #include <stdio.h>
 
-void main() {
-    char a;
-    int num;
+int main() {
+    int limiteInferior = 1;
+    int limiteSuperior = 99;
+    int chute;
+    char resposta;
+    int flag = 0;
 
-    num = 99;
+    printf("Pense em um número entre 1 e 99.\n");
 
-    for (;;) {
-        printf("Seu numero e %d? ", num);
-        a = getchar();
-        getchar();
+    do {
+        chute = (limiteInferior + limiteSuperior) / 2;
+        printf("É %d? (=, >, <): ", chute);
+        scanf(" %c", &resposta);
 
-        if (a == '=') {
-            printf("O seu numero e %d\n", num);
+        if (resposta == '=') {
+            printf("Parabéns! Eu acertei!\n");
+            flag = 1;
             break;
-        } else if (a == '<') {
-            num /= 2;
-        } else if (a == '>') {
-            num += num / 2;
+        } else if (resposta == '>') {
+            limiteInferior = chute + 1;
+        } else if (resposta == '<') {
+            limiteSuperior = chute - 1;
         } else {
-            printf("Entrada invalida. Use '=', '<' ou '>'\n");
+            printf("Entrada inválida. Use =, > ou <.\n");
+        }
+    } while (flag == 0);
+
+    printf("\nDigite X para sair  \n");
+    char saida;
+    while(saida != 'X' && saida != 'x')
+    {
+        scanf(" %c", &saida);
+
+        if(saida != 'X' && saida != 'x') {
+            printf("Erro, digite novamente  \n");
         }
     }
 
-       printf("\nDigite X para sair  \n");
-        char saida;
-        while(saida != 'X' && saida != 'x')
-            {
-                scanf(" %c", &saida);
-
-                if(saida != 'X' && saida != 'x') {
-                printf("Erro, digite novamente  \n");
-                }
-            }
-
-    return;
+    return 0;
 }
 
 #endif
@@ -86,43 +90,35 @@ void main() {
 #ifdef aula2ex3
 #include <stdio.h>
 
-void main() {
-    char a;
-    int num, cont;
+int main() {
+    int limiteInferior = 1;
+    int limiteSuperior = 99;
+    int chute;
+    char resposta;
+    int tentativas = 0;
 
-    num = 99;
-    cont = 0;
+    printf("Pense em um número entre 1 e 99.\n");
 
-    for (;;) {
-        printf("Seu numero e %d? ", num);
-        a = getchar();
-        getchar();
+    do {
+        chute = (limiteInferior + limiteSuperior) / 2;
+        printf("É %d? (=, >, <): ", chute);
+        scanf(" %c", &resposta);
+        tentativas++;
 
-        switch (a) {
+        switch (resposta) {
             case '=':
-                printf("O seu numero e %d\n", num);
-                printf("Numero de tentativas: %d\n", cont);
-                return;
-            case '<':
-                if (num % 2 != 0) {
-                    num = (num / 2) + 1;
-                } else {
-                    num = num / 2;
-                }
+                printf("Parabéns! Eu acertei em %d tentativas!\n", tentativas);
                 break;
             case '>':
-                if (num % 2 != 0) {
-                    num = ((num + (num / 2)) + 1);
-                } else {
-                    num = (num + (num / 2));
-                }
+                limiteInferior = chute + 1;
+                break;
+            case '<':
+                limiteSuperior = chute - 1;
                 break;
             default:
-                printf("Entrada invalida. Use '=', '<' ou '>'\n");
+                printf("Entrada inválida. Use =, > ou <.\n");
         }
-
-        cont++;
-    }
+    } while (resposta != '=');
 
        printf("\nDigite X para sair  \n");
         char saida;
@@ -134,7 +130,7 @@ void main() {
                 printf("Erro, digite novamente  \n");
                 }
             }
-        return;
+        return 0;
 }
 
 #endif
